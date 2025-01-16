@@ -1,0 +1,18 @@
+var callerAffected = Class.create();
+callerAffected.prototype = {
+    initialize: function() {},
+
+    affectedCaller: function() {
+        var ms = new GlideRecord('sys_user');
+        ms.addQuery('sys_id', gs.getUserID());
+        ms.query();
+
+		var cond = '';
+        if (ms.next()) {
+            cond = 'department=' + ms.getValue('department');
+        }
+        return cond;
+    },
+
+    type: 'callerAffected'
+};
