@@ -1,0 +1,16 @@
+ buildConditionForAdditionalAssignedTo: function(current) {
+        var ms = new GlideRecord('sys_user_grmember');
+        ms.addQuery('group', current.assignment_group);
+        ms.addQuery('user', '!=', current.assigned_to);
+        ms.query();
+
+        var queryStr = '';
+        while (ms.next()) {
+            if (queryStr == '') {
+                queryStr = 'sys_idIN' + ms.getValue('user');
+            } else {
+                queryStr += ',' + ms.getValue('user');
+            }
+        }
+        return queryStr;
+    },
