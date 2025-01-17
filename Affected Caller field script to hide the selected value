@@ -1,0 +1,13 @@
+ affectedCaller: function(current) {
+        var ms = new GlideRecord('sys_user');
+        ms.addQuery('sys_id', gs.getUserID());
+        ms.query();
+
+        var cond = '';
+        if (ms.next()) {
+            if (current.u_affected_caller) {
+                cond = 'sys_id!=' + current.u_affected_caller;
+            }
+        }
+        return cond;
+    },
